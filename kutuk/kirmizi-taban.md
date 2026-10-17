@@ -217,3 +217,19 @@ KALIB EXIT:1
   ❌ google.com → betik: DOLU
 ```
 Yapay üç dosya yeni ayıklayıcıyla da 1 / 0 / 2.
+
+## whoisN uçtan uca · 2026-10-17
+
+`claude -p "/domainlookup zono.data boş mu? boş değilse diğer uzantılara da bak"` → 12 satırlık liste (2. satır zono.com),
+ardından `claude -p --continue "whois2"` → `## 📄 WHOIS — zono.com` · Network Solutions, LLC · 1995-12-08 · 2027-12-07 ·
+ns21/ns22.worldnic.com. (`grep -c "Network Solutions"` 2 · `grep -c 1995-12-08` 1.)
+
+Yan bulgu → kırmızı-önce düzeltildi: `Sahip` alanı `—` çıkıyordu. Network Solutions RDAP registrant `fn` = `" "`;
+`rdapCoz` boşluğu açık ad sayıyordu (JSON'da `"sahip": " "`).
+```
+not ok 27 - RDAP sahip adı boşluksa açık ad sayılmaz, gizli sayılır
+  expected: ~
+  actual: ' '
+# pass 58  # fail 1
+```
+Düzeltmeden sonra `# tests 59 # pass 59 # fail 0` · canlı `| Sahip | 🔒 gizli |`.

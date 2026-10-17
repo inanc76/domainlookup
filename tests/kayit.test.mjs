@@ -43,3 +43,11 @@ test('dış kaynaktan gelen alan kontrol karakterinden arınır ve 200 karakterl
   assert.equal(temizle('x'.repeat(500)).length, 200);
   assert.equal(temizle(null), null);
 });
+
+test('RDAP sahip adı boşluksa açık ad sayılmaz, gizli sayılır', () => {
+  // canlıda görüldü (2026-10-17): Network Solutions zono.com kaydında registrant fn = " "
+  const j = { entities: [{ roles: ['registrant'], vcardArray: ['vcard', [['version', {}, 'text', '4.0'], ['fn', {}, 'text', ' ']]] }] };
+  const r = rdapCoz(j);
+  assert.equal(r.sahip, null);
+  assert.equal(r.sahipGizli, true);
+});

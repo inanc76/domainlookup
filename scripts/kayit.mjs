@@ -90,7 +90,8 @@ export function rdapCoz(j) {
   const rol = (ad) => (j.entities ?? []).find((e) => e.roles?.includes(ad));
   const kayitci = rol('registrar');
   const sahipVarligi = rol('registrant');
-  const adlar = [vcard(sahipVarligi, 'org'), vcard(sahipVarligi, 'fn')].filter(Boolean);
+  // boşluktan ibaret ad (ör. Network Solutions fn: " ") açık ad değildir
+  const adlar = [vcard(sahipVarligi, 'org'), vcard(sahipVarligi, 'fn')].map((a) => (typeof a === 'string' ? a.trim() : null)).filter(Boolean);
   const acik = adlar.find((a) => !GIZLI.test(a));
   return {
     kayit: olay('registration'),
