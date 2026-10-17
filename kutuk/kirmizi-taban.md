@@ -130,3 +130,18 @@ Kopya silindi.
 $ grep -rn "child_process\|execFile" scripts bin; echo EXIT:$?     → EXIT:1 (eşleşme yok)
 $ /usr/bin/grep -rnF 'rdap.org' scripts bin; echo EXIT:$?           → EXIT:1 (eşleşme yok)
 ```
+
+## Canlı ölçütler yeşil · 2026-10-17 14:25 · `npm run canli`
+
+```
+ok 1 - K-TR canlı: boş · dolu · olmayan ikinci seviye
+ok 2 - K-COM canlı: zono.com dolu, rastgele .com boş
+ok 3 - K-UZANTI canlı: zono.zzzz yok · zono.data ve foo.search kapalı · zono.kim açık
+ok 4 - K-PREMIUM canlı: love.dev premium · rastgele .com standart
+ok 5 - K-ALTERNATIF canlı: zono.data → numaralı liste, dolu satırda whoisN
+ok 6 - K-WHOIS canlı: zono.com ve mediaclick.com.tr kaydı
+# tests 6  # pass 6  # fail 0  # skipped 0   EXIT:0
+```
+K-TR kırmızı→yeşil: techlookup mantığı boş .com.tr'ye "ölçülemedi" diyordu; yeni motor `BOS` diyor (ok 1).
+Çapraz kontrol: `whois -h whois.trabis.gov.tr zono.com.tr` → Active (motor: dolu) · `zono.net.tr` → No match (motor: boşta).
+Rastgele ad 13 uzantıda (com net org com.tr net.tr io co app ai dev me kim tr) → 13/13 boşta, kontrol sorguları geçti.
