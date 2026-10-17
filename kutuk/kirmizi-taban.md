@@ -187,3 +187,33 @@ not ok 2 - K-KUR: kaldir yalnız kendi dosyalarını siler; yabancı dosya ve ku
 EXIT:1
 ```
 Geri alınınca `tests/kur.test.mjs` EXIT:0.
+
+## K-FIKIR · 2026-10-17 · uçtan uca (`claude -p`, kurulu skill)
+
+Komut (cwd `gecici/olcum/`): `claude -p "/domainlookup içinde zono geçen kişi arama motoru için alan adı bul" > fikir.txt`
+→ `EXIT:0 SURE:69sn` · model 40 aday kontrol ettirdi: 35 boş · 5 dolu · BELIRSIZ 0/40 (betik `CIKIS=0`).
+
+Kalibrasyon (yapay dosyalar, ilk ayıklayıcı):
+```
+kalib-kirmizi (google.com ✅ boşta) EXIT:1   ❌ google.com → betik: DOLU
+kalib-yesil   (rastgele .com ✅)    EXIT:0
+kalib-bos     (ad yok)             EXIT:2   ÖLÇÜLEMEDİ
+```
+
+İlk ölçüm **ÖLÇÜLEMEDİ** (yeşil değil): `K-FIKIR EXIT:2 — çıktıda "boşta" diye önerilen ad bulunamadı`.
+Sebep ölçütte: model boşları tablo olarak yazdı (`| 1 | zonokim.com | standart | … |`), satırlarda ✅/"boşta" yok;
+ayıklayıcı yalnız o işareti arıyordu. Düzeltme: bölüm başlığı ya da satır dolu/ölçülemedi/önerilmiyor demiyorsa her ad
+"önerildi" sayılır (yanılma yönü kırmızı).
+
+Düzeltmeden sonra aynı `fikir.txt`:
+```
+K-FIKIR EXIT:0
+Önerilen boşta ad: 35 · betik BOS: 35 · uyuşmayan: 0 · ölçülemedi: 0
+```
+Tablo biçiminde kalibrasyon (aynı dosyaya `| 41 | google.com | standart | sahte satır |`):
+```
+KALIB EXIT:1
+Önerilen boşta ad: 36 · betik BOS: 35 · uyuşmayan: 1 · ölçülemedi: 0
+  ❌ google.com → betik: DOLU
+```
+Yapay üç dosya yeni ayıklayıcıyla da 1 / 0 / 2.
