@@ -1,0 +1,38 @@
+# yakalandı 2026-10-17 · whois -h whois.trabis.gov.tr mediaclick.com.tr — sahip anonim
+** Domain Name: mediaclick.com.tr
+Domain Status: Active
+Frozen Status: -
+Transfer Status: The domain is LOCKED to transfer.
+
+** Registrant:
+Ornek Sahip A.S.
+Hidden upon user request
+Hidden upon user request
+Hidden upon user request
+Hidden upon user request
+
+
+** Registrar:
+NIC Handle		: ogv40
+Organization Name	: ODTÜ GELİŞTİRME VAKFI BİLGİ TEKNOLOJİLERİ SAN. VE TİC. A.Ş.
+Address			: Mustafa Kemal Mahallesi Dumlupınar Bulvarı
+			  No:280G/1104 Çankaya
+			  06800 Ankara Türkiye
+Phone			: +00 000 000 00 00-
+Fax			: - 
+
+
+** Domain Servers:
+may.ns.cloudflare.com
+luke.ns.cloudflare.com
+
+
+** Additional Info:
+Created on..............: 2011-Mar-02.
+Expires on..............: 2029-Mar-01.
+
+
+** Whois Server:
+Last Update Time: 2026-10-17T14:01:51+03:00
+
+

@@ -1,0 +1,32 @@
+{
+ "_yakalandi": "2026-10-17 DoH zono.com NS",
+ "status": 200,
+ "govde": {
+  "Status": 0,
+  "TC": false,
+  "RD": true,
+  "RA": true,
+  "AD": false,
+  "CD": false,
+  "Question": [
+   {
+    "name": "zono.com",
+    "type": 2
+   }
+  ],
+  "Answer": [
+   {
+    "name": "zono.com",
+    "type": 2,
+    "TTL": 6830,
+    "data": "ns21.worldnic.com."
+   },
+   {
+    "name": "zono.com",
+    "type": 2,
+    "TTL": 6830,
+    "data": "ns22.worldnic.com."
+   }
+  ]
+ }
+}

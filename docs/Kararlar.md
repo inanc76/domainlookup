@@ -34,3 +34,14 @@ Her karar: tarih · karar · kanıt (komut + çıktı satırı).
   `zonokim.com.tr` → "unavailable" ama TRABİS'e göre boş → GoDaddy .tr satmıyor.
 - **Hüküm:** GoDaddy yalnız premium bayrağı verir, boş/dolu kararı asla vermez. `.tr` ailesi GoDaddy'ye hiç gönderilmez. Fiyat yok.
 - **İstisna notu:** Bu adım adları bir kayıt firmasına gönderir; kullanıcı isteğiyle kabul edildi, `--premiumsuz` kapatır.
+
+## 2026-10-17 · Kontrol sorgusu adı: .tr için google.com.tr
+
+- **Kanıt:** `whois -h whois.trabis.gov.tr nic.tr` → `No match found for nic.tr` · `trabis.com.tr` → `No match found` · `google.com.tr` → `** Domain Name: google.com.tr`.
+- **Hüküm:** Varsayılan kontrol adı `nic.<uzantı>`; `.tr` ailesi için `google.com.tr`. Kontrol adı boş dönerse o sunucunun tüm boş kararları `BELIRSIZ`.
+
+## 2026-10-17 · GoDaddy'ye adlar tek tek sorulur
+
+- **Kanıt:** Toplu sorguda (`love.dev, zonokim.com`) tam eşleşme satırında `inventoryType` YOK; premium yalnız metindeki "💎 PREMIUM DOMAINS" bölümünde.
+  Tek adlık sorguda `structuredContent.domains[isExactMatch=true].inventoryType` → `love.dev: Premium`, `zonokim.com: Standard`.
+- **Hüküm:** Ad başına bir istek, yalnız yapılandırılmış alan okunur; tam eşleşme satırı yoksa "premium ölçülmedi". Metin emojisi ayrıştırılmaz.

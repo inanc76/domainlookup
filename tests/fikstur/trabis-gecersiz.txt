@@ -1,0 +1,2 @@
+# yakalandı 2026-10-17 · whois -h whois.trabis.gov.tr zono.xyz.tr
+Invalid input
