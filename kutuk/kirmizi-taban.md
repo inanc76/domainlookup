@@ -145,3 +145,21 @@ ok 6 - K-WHOIS canlı: zono.com ve mediaclick.com.tr kaydı
 K-TR kırmızı→yeşil: techlookup mantığı boş .com.tr'ye "ölçülemedi" diyordu; yeni motor `BOS` diyor (ok 1).
 Çapraz kontrol: `whois -h whois.trabis.gov.tr zono.com.tr` → Active (motor: dolu) · `zono.net.tr` → No match (motor: boşta).
 Rastgele ad 13 uzantıda (com net org com.tr net.tr io co app ai dev me kim tr) → 13/13 boşta, kontrol sorguları geçti.
+
+## K-KUR kırmızı · 2026-10-17 · techlookup kurulum kalıbı olduğu gibi (taslak bin/domainlookup.mjs)
+
+```
+$ npm test
+# tests 58
+# pass 54
+# fail 4
+not ok 27 - K-KUR: kurulan kopya depo dışından çalışır
+not ok 28 - K-KUR: kaldir yalnız kendi dosyalarını siler; yabancı dosya ve kurulum dışı yol korunur
+not ok 29 - K-KUR: manifestosuz dolu hedef klasöre yazmaz (çıkış 2)
+not ok 30 - K-KUR: yeniden kurulumda kullanıcının değiştirdiği dosya yedeklenir
+  error: 'eksik: liste/kapali-uzantilar.json'   ← liste kuruluma girmiyor
+  kaldir: expected 0, actual 1
+  manifestosuz hedef: expected 2, actual 0   ← başkasının klasörüne yazdı
+  yedek yok   ← elle değiştirilen SKILL.md ezildi
+MODULE_NOT_FOUND: 0
+```
