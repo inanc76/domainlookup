@@ -163,3 +163,27 @@ not ok 30 - K-KUR: yeniden kurulumda kullanıcının değiştirdiği dosya yedek
   yedek yok   ← elle değiştirilen SKILL.md ezildi
 MODULE_NOT_FOUND: 0
 ```
+
+## K-KUR yeşil · 2026-10-17 · gerçek kurulum + SKILL.md
+
+Kurulum yazılınca yeni bir kırmızı çıktı — kurulu betik `--yardim` ile **boş** çıktı veriyordu:
+`/var/folders/…` sembolik bağ, Node betiği `/private/var/…` diye görüyor; "doğrudan mı çalıştırıldım" kontrolü
+eşleşmiyordu (gerçek kurulumda da `~/.claude` bağlıysa aynısı olurdu). Düzeltme: iki yol `realpathSync` ile.
+Ardından `--yardim` çıkış 1 veriyordu (ad yok = kullanım hatası sayılıyordu) → açık `--yardim` çıkış 0.
+
+```
+$ npm test
+# tests 58
+# pass 58
+# fail 0
+EXIT:0
+```
+
+Kalibrasyon (mutant): `kaldir` başına `rmSync(hedef, {recursive:true})` →
+```
+not ok 2 - K-KUR: kaldir yalnız kendi dosyalarını siler; yabancı dosya ve kurulum dışı yol korunur
+# pass 3
+# fail 1
+EXIT:1
+```
+Geri alınınca `tests/kur.test.mjs` EXIT:0.

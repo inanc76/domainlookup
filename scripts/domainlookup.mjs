@@ -3,7 +3,8 @@
 //   node scripts/domainlookup.mjs <alan…> [--fikir] [--premiumsuz] [--uzantilar=com,net] [--json]
 //   node scripts/domainlookup.mjs whois <alan>
 // Çıkış kodu: 0 hepsi kesin · 1 kullanım hatası / geçersiz yazım / 60 ad sınırı · 2 en az biri ölçülemedi
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { realpathSync } from 'node:fs';
 import { normalizeEt } from './girdi.mjs';
 import { sorgulaHepsi, rdapSor, whoisSor, TRABIS } from './sorgu.mjs';
 import { premiumBak } from './premium.mjs';
@@ -72,7 +73,7 @@ export async function calistir(argv, { ag = gercekAg(), veriKlasoru = VARSAYILAN
   const bayraklar = argv.filter((a) => a.startsWith('--'));
   const adlar = argv.filter((a) => !a.startsWith('--'));
   const var_ = (b) => bayraklar.includes(b);
-  if (!adlar.length || var_('--yardim') || var_('--help')) return { metin: YARDIM, cikis: adlar.length ? 0 : 1, json: null };
+  if (!adlar.length || var_('--yardim') || var_('--help')) return { metin: YARDIM, cikis: var_('--yardim') || var_('--help') ? 0 : 1, json: null };
   if (adlar[0] === 'whois') return whoisKomutu(adlar[1], { ag, veriKlasoru });
   if (adlar.length > TAVAN) return { metin: `En çok ${TAVAN} ad sorulabilir (verilen: ${adlar.length}).`, cikis: 1, json: null };
 
@@ -101,7 +102,9 @@ export async function calistir(argv, { ag = gercekAg(), veriKlasoru = VARSAYILAN
   return { metin: fikir ? fikirMetni(json, o) : sorguMetni(json, o), cikis: cikisKodu(sonuclar), json };
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+// sembolik bağlı yoldan (/var → /private/var, ~/.claude bağı) çağrılınca da doğrudan çalıştırma sayılır
+const dogrudan = () => { try { return realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url)); } catch { return false; } };
+if (process.argv[1] && dogrudan()) {
   const argv = process.argv.slice(2);
   const r = await calistir(argv);
   process.stdout.write(`${argv.includes('--json') && r.json ? JSON.stringify(r.json, null, 1) : r.metin}\n`);
