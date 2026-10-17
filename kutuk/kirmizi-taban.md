@@ -93,3 +93,40 @@ not ok 51 - K-GIRDI: bozuk girdi ağa hiç çıkmaz
 not ok 52 - dolu ad park sunucusundaysa "satılık olabilir" notu düşülür
 ```
 Geçen 2 test (koruma) etiketli; kalan 51 beklenti hatasıyla kırmızı.
+
+Kırmızı taban commit'i: `ec66427` (`git show ec66427:scripts/sorgu.mjs` → her ada BOS diyen taslak).
+
+## K-TR kırmızı · 2026-10-17 · techlookup'ın değiştirilmemiş mantığı
+
+```
+$ node -e "…techlookup/scripts/kimlik.mjs alanAdiSorgula('zonoyok1792235948.com.tr')"
+{"durum":"ölçülemedi (TRABİS kaydı yok)","alan":"zonoyok1792235948.com.tr"}
+$ whois -h whois.trabis.gov.tr zonoyok1792235948.com.tr
+No match found for zonoyok1792235948.com.tr
+```
+Eski mantık boş adı "ölçülemedi" sayıyor; yeni motor aynı ad için `BOS` vermeli (yeşil satırı canlı ölçümde eklenir).
+
+## K-BIRIM yeşil · 2026-10-17 · gerçek motor
+
+```
+$ npm test
+# tests 54   # pass 54   # fail 0   EXIT:0
+```
+
+## K-PREMIUM bozma deneyi (5b) · 2026-10-17
+
+`gecici/mutant` kopyasında `domainlookup.mjs`: premium ölçülmediyse `durum = 'DOLU'` (GoDaddy'ye karar verdirme).
+```
+$ npm test   (bozuk kopya)
+not ok 1 - K-ALTERNATIF: kapalı uzantı → aynı ad diğer uzantılarda numaralı denenir
+not ok 4 - K-PREMIUM: GoDaddy "alınamaz" dese de kayıt kurumu boş diyorsa BOS kalır
+# pass 52  # fail 2   EXIT:1
+```
+Kopya silindi.
+
+## Koruma ölçütleri · 2026-10-17
+
+```
+$ grep -rn "child_process\|execFile" scripts bin; echo EXIT:$?     → EXIT:1 (eşleşme yok)
+$ /usr/bin/grep -rnF 'rdap.org' scripts bin; echo EXIT:$?           → EXIT:1 (eşleşme yok)
+```

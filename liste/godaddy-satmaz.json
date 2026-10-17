@@ -1,0 +1,5 @@
+{
+  "_not": "GoDaddy'nin satmadığı uzantılar: premium sorusu bunlar için hiç gönderilmez. Bir uzantı yazıldığında onunla biten her uzantı da kapsanır (\"tr\" → com.tr, net.tr, tr …).",
+  "_kanit": "2026-10-17 GoDaddy MCP domains_check_availability zonokim.com.tr → 'unavailable'; TRABİS aynı ad için 'No match found' (boş). Bkz. docs/Kararlar.md",
+  "uzantilar": ["tr"]
+}

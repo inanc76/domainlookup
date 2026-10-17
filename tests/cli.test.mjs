@@ -36,6 +36,14 @@ test('K-PREMIUM: premium ad boş kalır, 💎 etiketi alır', async () => {
   assert.equal(r.json.sonuclar[0].premium, 'premium');
 });
 
+test('K-PREMIUM: GoDaddy "alınamaz" dese de kayıt kurumu boş diyorsa BOS kalır', async () => {
+  const ag = standartAg({ http: { 'api.godaddy.com': { govde: fikstur('godaddy-tr.txt').replaceAll('zonokim.com.tr', 'zonoyokxyz.com') } } });
+  const r = await kos(['zonoyokxyz.com'], ag);
+  assert.equal(r.json.sonuclar[0].durum, 'BOS');
+  assert.equal(r.json.sonuclar[0].premium, null);
+  assert.match(r.metin, /zonoyokxyz\.com — ✅ boşta · premium ölçülmedi/);
+});
+
 test('--premiumsuz GoDaddy\'ye hiç sormaz', async () => {
   const ag = standartAg();
   const r = await kos(['zonoyokxyz.com', '--premiumsuz'], ag);
