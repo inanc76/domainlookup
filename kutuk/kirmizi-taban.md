@@ -233,3 +233,14 @@ not ok 27 - RDAP sahip adı boşluksa açık ad sayılmaz, gizli sayılır
 # pass 58  # fail 1
 ```
 Düzeltmeden sonra `# tests 59 # pass 59 # fail 0` · canlı `| Sahip | 🔒 gizli |`.
+
+## K-SIZINTI + korumalar · 2026-10-17 (yerel)
+
+Plandaki biçim (`git grep -nIE "<RE>" -- . ":!README.md"` → boş) **5 satır** verdi; 5'i de maskeleme yer tutucusu
+`ornek@ornek.invalid` (2 fikstür + `yakala.mjs`'teki maske kodu). Ölçüt yalnız bu dizeyi dışlayacak biçimde daraltıldı:
+```
+git grep -nIE "<RE>" -- . ":!README.md" | grep -v 'ornek@ornek\.invalid'   → 0 satır
+kalibrasyon: "kisi@firma.com.tr" + "+90 (312) 555" → 2 eşleşme
+```
+K-SISTEMSIZ `EXIT:1` (child_process yok) · rdap.org `EXIT:1` · K-BAGIMSIZ `EXIT:0`, lockfile 0 · `npm run canli` 6/6 · `npm test` 59/59.
+Ölçüm kanıtları (`fikir.txt`, `whoisn-*.txt`) → `veri/yedek/20261017-olcum/` (git dışı, silinmez).
