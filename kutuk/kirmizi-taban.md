@@ -244,3 +244,18 @@ kalibrasyon: "kisi@firma.com.tr" + "+90 (312) 555" → 2 eşleşme
 ```
 K-SISTEMSIZ `EXIT:1` (child_process yok) · rdap.org `EXIT:1` · K-BAGIMSIZ `EXIT:0`, lockfile 0 · `npm run canli` 6/6 · `npm test` 59/59.
 Ölçüm kanıtları (`fikir.txt`, `whoisn-*.txt`) → `veri/yedek/20261017-olcum/` (git dışı, silinmez).
+
+## K-AYNA-BIRIM · 2026-10-17 · ayna eşitleme aracı (`ayna/esitle.mjs`, dal `feat/ayna`)
+
+Kırmızı — taslak (`esitle`/`denetle` hiçbir şey yapmadan `{cikis:0}` döner), modül-yok hatası 0:
+```
+not ok 1 - K-AYNA: boş hedefe eşitleme → denetle 0, .github taşınmaz, AYNA.md sha taşır   (ENOENT scripts/a.mjs — yazılmadı)
+not ok 2 - K-AYNA: hedefte değişen, eksik ve fazla dosya denetle 1 verir; …               (ENOENT SKILL.md)
+not ok 3 - K-AYNA: kaynakta yeni commit → AYNA.md sha eski, denetle 1
+not ok 4 - K-AYNA: kirli kaynak → 2, hiçbir şey yazılmaz
+not ok 5 - K-AYNA: AYNA.md taşımayan dolu hedef → 2, dosyalara dokunulmaz
+not ok 6 - K-AYNA: hedefteki sembolik bağ üzerinden dışarı yazılmaz → 2
+# tests 65  # pass 59  # fail 6
+```
+Yeşil: `# tests 65 # pass 65 # fail 0`.
+Mutantlar (geri alındı): M1 sembolik bağ engeli sökülür → `not ok 6` · M2 `veri/` koruması sökülür → `not ok 2`.
