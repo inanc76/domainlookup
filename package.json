@@ -1,6 +1,6 @@
 {
   "name": "domainlookup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Alan adı boşta mı, WHOIS kaydı ne, fikrime uygun boş adlar hangileri — .com.tr dahil; Claude Code /domainlookup skill'i.",
   "type": "module",
   "bin": {

@@ -169,6 +169,13 @@ npm run canli   # gerçek sunuculara giden testler — ağ yoksa "ölçülemedi"
 node liste/guncelle.mjs   # kayda kapalı uzantı listesini ICANN'den tazele, farkı gösterir
 ```
 
+**Ayna:** `mediaclick-skills/skills/domainlookup/` bu deponun birebir kopyasıdır. Her sürümden sonra:
+
+```bash
+node ayna/esitle.mjs ../mediaclick-skills/skills/domainlookup            # eşitle (kaynak ağaç temiz olmalı)
+node ayna/esitle.mjs ../mediaclick-skills/skills/domainlookup --denetle  # 0 eşit · 1 ayrışmış
+```
+
 Kararlar ve kanıtları: [`docs/Kararlar.md`](docs/Kararlar.md).
 
 ## Kaynaklar ve teşekkür

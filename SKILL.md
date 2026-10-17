@@ -2,6 +2,7 @@
 name: domainlookup
 description: Alan adı boşta mı, WHOIS kaydı ne, fikre uygun boş alan adları neler? "zono.com boş mu", "whois zono.com", "whois2", "içinde zono geçen alan adı bul", "domain fikri", "alan adı öner" gibi isteklerde kullan. .com.tr dahil her uzantıyı kayıt kurumuna sorar; emin olamadığı adı asla "boş" demez.
 allowed-tools: Bash(node ~/.claude/skills/domainlookup/scripts/domainlookup.mjs:*)
+model: inherit
 ---
 
 # /domainlookup — alan adı boşta mı · WHOIS · fikir
