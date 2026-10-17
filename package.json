@@ -27,6 +27,8 @@
     "whois",
     "rdap",
     "domain-availability",
+    "domain-name-generator",
+    "premium-domains",
     "trabis",
     "turkish"
   ],
@@ -35,5 +37,6 @@
     "url": "git+https://github.com/inanc76/domainlookup.git"
   },
   "homepage": "https://github.com/inanc76/domainlookup#readme",
+  "bugs": "https://github.com/inanc76/domainlookup/issues",
   "license": "MIT"
 }

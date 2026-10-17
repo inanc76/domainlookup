@@ -33,8 +33,13 @@ Node.js 22 ya da üstü yeterli; başka bağımlılık yok.
 |---|---|
 | Kurmadan bir kez sor | `npx github:inanc76/domainlookup zono.com` |
 | Claude Code'a `/domainlookup` komutunu kur | `npx github:inanc76/domainlookup kur` |
+| pnpm ile | `pnpm dlx github:inanc76/domainlookup kur` |
+| Bun ile | `bunx github:inanc76/domainlookup kur` |
+| Kalıcı komut olarak kur | `npm i -g github:inanc76/domainlookup` → sonra `domainlookup zono.com` |
 | Yalnız bu projeye kur | `npx github:inanc76/domainlookup kur --proje` |
 | Kaldır | `npx github:inanc76/domainlookup kaldir` |
+
+Komutların başındaki `kur` yerine bir alan adı yazarsan kurmadan doğrudan sorar (ör. `pnpm dlx github:inanc76/domainlookup zono.com`).
 
 `kur` skill'i `~/.claude/skills/domainlookup/` altına kopyalar (`--proje` ile `./.claude/skills/`).
 Yeniden çalıştırınca dosyaları tazeler; elle değiştirdiğin bir dosya varsa önce `<dosya>.yedek-YYYYMMDD-HHMM`
@@ -65,6 +70,68 @@ domainlookup zono.com --premiumsuz         # GoDaddy'ye hiç sorma
 ```
 
 Çıkış kodu: `0` hepsi kesin · `1` kullanım hatası ya da yazım geçersiz · `2` en az bir ad ölçülemedi.
+
+## Ne çıkar
+
+Üç soru, üç çıktı. Örnekler gerçek sorgulardan (2026-10-17), kısaltıldı.
+
+**1 · Boşta mı?** İstenen ad boşsa tek satır gelir. Değilse aynı ad diğer uzantılarda denenir; dolu satırların
+yanında WHOIS için yazılacak kısa komut durur.
+
+```
+## 🔎 zono.data  (sorgu 2026-10-17 14:35)
+
+1. zono.data — ⛔ kayda kapalı — uzantı Dish DBS'ye ait, halka satılmıyor
+2. zono.com — ❌ dolu — WHOIS için "whois2" yazın
+3. zono.net — ❌ dolu — WHOIS için "whois3" yazın
+5. zono.com.tr — ❌ dolu — WHOIS için "whois5" yazın
+6. zono.net.tr — ✅ boşta · premium ölçülmedi
+```
+
+**2 · WHOIS kaydı.** Claude Code'da `whois2` yazmak yeter; terminalde `domainlookup whois zono.com`.
+
+```
+## 📄 WHOIS — zono.com
+
+| Alan | Değer |
+|---|---|
+| Kayıt firması | Network Solutions, LLC |
+| Kayıt tarihi | 1995-12-08 |
+| Bitiş tarihi | 2027-12-07 |
+| Durum | client transfer prohibited |
+| Ad sunucuları | ns21.worldnic.com, ns22.worldnic.com |
+| Sahip | 🔒 gizli |
+| Kaynak | RDAP (rdap.verisign.com) |
+```
+
+**3 · Fikre uygun boş adlar.** Yalnız Claude Code'da. İstek: *"içinde zono geçen, kişi arama motoru olarak
+kullanabileceğim alan adı bul"*. Claude 40 aday üretti; betik 35'ini boş, 5'ini dolu buldu. İlk beş öneri:
+
+| Ad | Premium | Neden |
+|---|---|---|
+| zonokim.com | standart | "Zono kim?" sorusu kişi aramanın kendisi |
+| zono.kim | standart | Markanın en kısa hâli; uzantı "kim" sorusunu taşıyor |
+| zonobul.com | standart | Türkçe "bul" fiili ne iş yaptığını anlatıyor |
+| zonorehber.com | standart | "Rehber" kişi bulmayla özdeş bir kelime |
+| findzono.com | standart | Yurt dışı için anlaşılır İngilizce karşılık |
+
+Claude kendi tahminiyle "boş" yazamaz: listedeki her ad betiğe sorulmuş ve betiğin cevabıyla gösterilir.
+Altına her seferinde TÜRKPATENT (marka çakışması) ve KVKK (kişi arama hizmeti) notu düşülür.
+
+**Etiketler:**
+
+| Etiket | Anlamı |
+|---|---|
+| ✅ boşta · standart | Kayıt kurumunda kaydı yok, normal fiyatla satılıyor |
+| 💎 boşta ama premium | Kayıtsız, ama kayıt firması normalden pahalı satıyor |
+| 🔨 boşta ama açık artırmada | Kayıtsız, ama yalnız açık artırmayla alınabiliyor |
+| ✅ boşta · premium ölçülmedi | Kayıtsız; premium mu bakılmadı (`.tr` adları ya da GoDaddy cevap vermedi) |
+| ❌ dolu | Birinin kaydı var — yanındaki `whoisN` ile kaydı görülür |
+| ⛔ kayda kapalı | Uzantı var ama halka satılmıyor (marka uzantıları, `.data`, `.search`) |
+| 🚫 böyle bir uzantı yok | IANA listesinde böyle bir uzantı yok (ör. `zono.zzzz`) |
+| ⚠️ ölçülemedi | Sunucu cevap vermedi ya da cevap anlaşılmadı — nedeni yanında yazar |
+
+⚠️ ile ✅ asla karışmaz: ölçülemeyen bir ad hiçbir zaman "boşta" diye yazılmaz.
 
 ## Nasıl karar veriyor
 
